@@ -20,4 +20,10 @@
 -Explore routing and use of ?, +, (), * in the routes
 -use od regEx in routes /a/ /.*fly$/
 -reading the queuy params in the routes
--reading the dynamic params
+-reading the dynamic routes
+
+-Multiple route handler = play with the code
+-next()
+-next function and errord along with res.send()
+-what is a middlewere
+-how express JS basically handles request behind the scenes
