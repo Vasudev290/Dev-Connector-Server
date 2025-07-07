@@ -35,7 +35,7 @@ app.post("/signup", async (req, res) => {
       .status(200)
       .json({ message: "Data posted successfull", userDetails: userData });
   } catch (err) {
-    res.status(401).send({ message: "Data failed to posted" });
+    res.status(401).send({ message: "Data failed to posted" , error: err.message});
   }
 });
 
@@ -52,7 +52,7 @@ app.get("/user", async (req, res) => {
       .status(200)
       .json({ message: "User Details found", userEmail: userEmailId });
   } catch (error) {
-    res.status(400).json({ message: "Data failed to get the user" });
+    res.status(400).json({ message: "Data failed to get the user", error: error.message});
   }
 });
 
