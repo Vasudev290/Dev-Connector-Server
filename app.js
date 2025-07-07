@@ -86,6 +86,7 @@ app.put("/signup/:id", async (req, res) => {
     if(req.body?. skills.length > 12){
       throw new Error("Skills cannot be more then 12! ")
     }
+    
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       returnDocument: "after",
