@@ -39,3 +39,8 @@
 -Create Post api call /signup api to add data to database
 -push some documets using api calls from postman
 -Error Hnadling using try, catch
+
+
+-js object vs JSON (diff b/w)
+-Add the express.json() middleware to your app
+-Make your sigup API dynamic to recive data from the end user(postman, browser, etc.,) 

@@ -3,7 +3,6 @@ const connectDB = require("./Config/db");
 const User = require("./models/User");
 const app = express();
 
-
 app.use(express.json());
 
 //Create
@@ -23,6 +22,23 @@ app.post("/signup", async (req, res) => {
       .json({ message: "Data posted successfull", userDetails: userData });
   } catch (err) {
     res.status(401).send({ message: "Data failed to posted" });
+  }
+});
+
+//Find one user with email
+//Read Get-Data
+app.get("/user", async (req, res) => {
+  try {
+    const emailId = req.body.emailId;
+    const userEmailId = await User.findOne({ emailId: emailId });
+    if (!userEmailId) {
+      res.status(404).json({ message: "User is nort found!" });
+    }
+    res
+      .status(200)
+      .json({ message: "User Details found", userEmail: userEmailId });
+  } catch (error) {
+    res.status(400).json({ message: "Data failed to get the user" });
   }
 });
 
@@ -51,12 +67,10 @@ app.put("/signup/:id", async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: "User details not found!" });
     }
-    res
-      .status(200)
-      .json({
-        message: "User updated successfully!",
-        updated_details: updatedUser,
-      });
+    res.status(200).json({
+      message: "User updated successfully!",
+      updated_details: updatedUser,
+    });
   } catch (error) {
     res
       .status(500)
@@ -71,7 +85,10 @@ app.delete("/signup/:id", async (req, res) => {
     if (!deleteUser) {
       return res.status(404).json({ message: "User Details not found" });
     }
-    res.status(200).json({ message: "User Deleted successfully!", User_Details: deleteUser });
+    res.status(200).json({
+      message: "User Deleted successfully!",
+      User_Details: deleteUser,
+    });
   } catch (error) {
     res
       .status(500)
