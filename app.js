@@ -8,13 +8,27 @@ app.use(express.json());
 //Create
 app.post("/signup", async (req, res) => {
   try {
+    const {
+      firstName,
+      lastName,
+      age,
+      gender,
+      emailId,
+      password,
+      photoUrl,
+      about,
+      skills,
+    } = req.body;
     const userObj = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      age: req.body.age,
-      gender: req.body.gender,
-      emailId: req.body.emailId,
-      password: req.body.password,
+      firstName,
+      lastName,
+      age,
+      gender,
+      emailId,
+      password,
+      photoUrl,
+      about,
+      skills,
     });
     const userData = await userObj.save();
     res
