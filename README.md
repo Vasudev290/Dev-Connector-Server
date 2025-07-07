@@ -64,17 +64,14 @@ User.findOne with duplucate email ids, which object returned
 -Improve the DB schema - PUT all appropiate validations on each field in Schema
 -Add timestamps to the userSchema
 
-Add API level validation on Patch request & Signup post api
+-Add API level validation on Patch request & Signup post api
+-DATA Sanitizing - Add API validation for each field
+-Install validator
+-Explore validator library funcation and Use vlidator funcs for -password, email, photoURL
+-NEVER TRUST req.body
+-Validate data in Signup API
 
-DATA Sanitizing - Add API validation for each field
 
-Install validator
-
-Explore validator library funcation and Use vlidator funcs for password, email, photoURL
-
-NEVER TRUST req.body
-
-Validate data in Signup API
 
 Install bcrypt package
 

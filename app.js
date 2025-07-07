@@ -75,12 +75,26 @@ app.get("/signup", async (req, res) => {
 //update
 app.put("/signup/:id", async (req, res) => {
   try {
+    const ALLOWED_UPDATES = ["photoUrl", "about", "gender", "age", "skills"];
+    const isUpdatedAllowed = Object.keys(req.body).every((k) =>
+      ALLOWED_UPDATES.includes(k)
+    );
+    if (!isUpdatedAllowed) {
+      throw new Error("Update not allowed!");
+    }
+
+    if(req.body?. skills.length > 12){
+      throw new Error("Skills cannot be more then 12! ")
+    }
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
+      returnDocument: "after",
+      runValidators: true,
     });
     if (!updatedUser) {
       return res.status(404).json({ message: "User details not found!" });
     }
+
     res.status(200).json({
       message: "User updated successfully!",
       updated_details: updatedUser,
