@@ -1,13 +1,19 @@
 const express = require("express");
-const connectDB = require("./Config/db");
-const User = require("./models/User");
+const connectDB = require("./src/Config/db");
+const User = require("./src/models/User");
+const { validateSignUpData } = require("./src/utils/validation");
+const bcrypt = require("bcrypt");
 const app = express();
 
+//middleware josn
 app.use(express.json());
 
 //Create
 app.post("/signup", async (req, res) => {
   try {
+    //Validation of data
+    validateSignUpData(req);
+
     const {
       firstName,
       lastName,
@@ -19,13 +25,18 @@ app.post("/signup", async (req, res) => {
       about,
       skills,
     } = req.body;
+
+    //Encrypt the password
+    const passwordHash = await bcrypt.hash(password, 10);
+    console.log(passwordHash);
+
     const userObj = new User({
       firstName,
       lastName,
       age,
       gender,
       emailId,
-      password,
+      password: passwordHash,
       photoUrl,
       about,
       skills,
@@ -35,7 +46,33 @@ app.post("/signup", async (req, res) => {
       .status(200)
       .json({ message: "Data posted successfull", userDetails: userData });
   } catch (err) {
-    res.status(401).send({ message: "Data failed to posted" , error: err.message});
+    res
+      .status(401)
+      .send({ message: "Data failed to posted", error: err.message });
+  }
+});
+
+//login
+app.post("/login", async (req, res) => {
+  try {
+    const { emailId, password } = req.body;
+    const userVaild = await User.findOne({ emailId: emailId });
+    if (!userVaild) {
+      throw new Error("Invaild Credentials!");
+    }
+    const isPasswordValid = await bcrypt.compare(password, userVaild.password);
+    if (!isPasswordValid) {
+      throw new Error("Invaild Credentials!");
+    } else {
+      res.status(200).json({ message: "Login Successfull!!!!" });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .json({
+        message: "Data failed to post the login details",
+        error: error.message,
+      });
   }
 });
 
@@ -52,7 +89,9 @@ app.get("/user", async (req, res) => {
       .status(200)
       .json({ message: "User Details found", userEmail: userEmailId });
   } catch (error) {
-    res.status(400).json({ message: "Data failed to get the user", error: error.message});
+    res
+      .status(400)
+      .json({ message: "Data failed to get the user", error: error.message });
   }
 });
 
@@ -83,10 +122,10 @@ app.put("/signup/:id", async (req, res) => {
       throw new Error("Update not allowed!");
     }
 
-    if(req.body?. skills.length > 12){
-      throw new Error("Skills cannot be more then 12! ")
+    if (req.body?.skills.length > 12) {
+      throw new Error("Skills cannot be more then 12! ");
     }
-    
+
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       returnDocument: "after",

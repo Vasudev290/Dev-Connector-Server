@@ -24,6 +24,7 @@
 -reading the queuy params in the routes
 -reading the dynamic routes
 
+# Req and Res
 -Multiple route handler = play with the code
 -next()
 -next function and errord along with res.send()
@@ -33,11 +34,13 @@
 -write a dummy auth and user middleware for all user routes, expect /user, /login
 -Error handling using app/use("/", (err, req, res, next) => {});
 
+# MongoDB Atlas Connections
 -Create a free cluster on mongoDB official website (MongoDB Atlas)
 -Install Mongoose library
 -Connect your application to the Database "connection-url"/dev-connector"
 -Call the MongoDB connectDB function and connect to database before straing application on 6969
 
+# Schema process
 - Create a User Schema & userModel
   -Create Post api call /signup api to add data to database
   -push some documets using api calls from postman
@@ -48,6 +51,7 @@
 -Make your sigup API dynamic to recive data from the end user(postman, browser, etc.,)
 User.findOne with duplucate email ids, which object returned
 
+# API setup
 -API- Get user by email
 -API - Feed API - GET /feed - get all the users from the database
 -API - Get user by ID
@@ -64,6 +68,7 @@ User.findOne with duplucate email ids, which object returned
 -Improve the DB schema - PUT all appropiate validations on each field in Schema
 -Add timestamps to the userSchema
 
+# Understand the HTTP Methods
 -Add API level validation on Patch request & Signup post api
 -DATA Sanitizing - Add API validation for each field
 -Install validator
@@ -71,39 +76,23 @@ User.findOne with duplucate email ids, which object returned
 -NEVER TRUST req.body
 -Validate data in Signup API
 
-
-
-Install bcrypt package
-
-Create PasswordHash using bcrypt.hash & save the user is excrupted password
-
-Create login API
-
-Compare passwords and throw errors if email or password is invalid
-
-install cookie-parser
-
-just send a dummy cookie to user
-
-create GET /profile APi and check if you get the cookie back
-
-install jsonwebtoken
-
-IN login API, after email and password validation, create e JWT token and send it to user in cookies
-
-read the cookies inside your profile API and find the logged in user
-
-userAuth Middleware
-
-Add the userAuth middle ware in profile API and a new sendConnectionRequest API
-
-Set the expiry of JWT token and cookies to 7 days
-
-Create userSchema method to getJWT()
-
-Create UserSchema method to comparepassword(passwordInputByUser)
-
-Explore tinder APIs
+# Authentication Bcrypt / Jsonwebtoken
+-Install bcrypt package
+-Create PasswordHash using bcrypt.hash & save the user is excrupted password
+-Create login API
+-Compare passwords and throw errors if email or password is invalid
+-install cookie-parser
+-just send a dummy cookie to user
+-create GET /profile APi and check if you get the cookie back
+-install jsonwebtoken
+-IN login API, after email and password validation, create e JWT token and send it to user in cookies
+-read the cookies inside your profile API and find the logged in user
+-userAuth Middleware
+-Add the userAuth middle ware in profile API and a new sendConnectionRequest API
+-Set the expiry of JWT token and cookies to 7 days
+-Create userSchema method to getJWT()
+-Create UserSchema method to comparepassword(passwordInputByUser)
+-Explore tinder APIs
 
 Create a list all API you can think of in Dev Tinder
 
