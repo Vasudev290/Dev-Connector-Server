@@ -3,10 +3,13 @@ const connectDB = require("./src/Config/db");
 const User = require("./src/models/User");
 const { validateSignUpData } = require("./src/utils/validation");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 const app = express();
 
-//middleware josn
+//middleware josn, cookie-parser
 app.use(express.json());
+app.use(cookieParser());
 
 //Create
 app.post("/signup", async (req, res) => {
@@ -64,15 +67,42 @@ app.post("/login", async (req, res) => {
     if (!isPasswordValid) {
       throw new Error("Invaild Credentials!");
     } else {
+      //Create aJWT Token
+      const token = jwt.sign({ _id: userVaild._id }, "DEV@connector$79031");
+
+      //Add the token to cookie and send the response back to the user
+      res.cookie("token", token);
       res.status(200).json({ message: "Login Successfull!!!!" });
     }
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        message: "Data failed to post the login details",
-        error: error.message,
-      });
+    res.status(400).json({
+      message: "Data failed to post the login details",
+      error: error.message,
+    });
+  }
+});
+
+//Profile
+app.get("/profile", async (req, res) => {
+  try {
+    const cookies = req.cookies;
+    const { token } = cookies;
+    if(!token){
+      throw new Error("Invaild Token!")
+    }
+    //Validate the token
+    const decodedMessage = await jwt.verify(token, "DEV@connector$79031");
+    const { _id } = decodedMessage;
+    const user = await User.findById(_id);
+    if(!user){
+      throw new Error("User does not exist!")
+    }
+    res.send(user);
+  } catch (error) {
+    res.status(400).json({
+      message: "Data failed to post the login details",
+      error: error.message,
+    });
   }
 });
 
