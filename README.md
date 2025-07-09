@@ -1,5 +1,4 @@
 # Creating Server
-
 -Create a repository
 -Initailize the repository
 -node-modules, package-lock.json, package.json
@@ -10,7 +9,6 @@
 -install nodemon and update script inside package.json
 
 # gitignore, create server, normal router & test Postman
-
 -initialize git
 -gitignore
 -create a remote repo on github
@@ -45,7 +43,6 @@
   -Create Post api call /signup api to add data to database
   -push some documets using api calls from postman
   -Error Hnadling using try, catch
-
 -js object vs JSON (diff b/w)
 -Add the express.json() middleware to your app
 -Make your sigup API dynamic to recive data from the end user(postman, browser, etc.,)
@@ -85,7 +82,7 @@ User.findOne with duplucate email ids, which object returned
 -just send a dummy cookie to user
 -create GET /profile APi and check if you get the cookie back
 -install jsonwebtoken
--IN login API, after email and password validation, create e JWT token and send it to user in cookies
+-In login API, after email and password validation, create e JWT token and send it to user in cookies
 -read the cookies inside your profile API and find the logged in user
 -userAuth Middleware
 -Add the userAuth middle ware in profile API and a new sendConnectionRequest API
@@ -94,6 +91,8 @@ User.findOne with duplucate email ids, which object returned
 -Create UserSchema method to comparepassword(passwordInputByUser)
 -Explore tinder APIs
 
+
+# Router
 Create a list all API you can think of in Dev Tinder
 
 Group multiple routes under repective routers
