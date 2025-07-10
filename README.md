@@ -1,4 +1,5 @@
 # Creating Server
+
 -Create a repository
 -Initailize the repository
 -node-modules, package-lock.json, package.json
@@ -9,6 +10,7 @@
 -install nodemon and update script inside package.json
 
 # gitignore, create server, normal router & test Postman
+
 -initialize git
 -gitignore
 -create a remote repo on github
@@ -23,6 +25,7 @@
 -reading the dynamic routes
 
 # Req and Res
+
 -Multiple route handler = play with the code
 -next()
 -next function and errord along with res.send()
@@ -33,22 +36,25 @@
 -Error handling using app/use("/", (err, req, res, next) => {});
 
 # MongoDB Atlas Connections
+
 -Create a free cluster on mongoDB official website (MongoDB Atlas)
 -Install Mongoose library
 -Connect your application to the Database "connection-url"/dev-connector"
 -Call the MongoDB connectDB function and connect to database before straing application on 6969
 
 # Schema process
+
 - Create a User Schema & userModel
   -Create Post api call /signup api to add data to database
   -push some documets using api calls from postman
   -Error Hnadling using try, catch
--js object vs JSON (diff b/w)
--Add the express.json() middleware to your app
--Make your sigup API dynamic to recive data from the end user(postman, browser, etc.,)
-User.findOne with duplucate email ids, which object returned
+  -js object vs JSON (diff b/w)
+  -Add the express.json() middleware to your app
+  -Make your sigup API dynamic to recive data from the end user(postman, browser, etc.,)
+  User.findOne with duplucate email ids, which object returned
 
 # API setup
+
 -API- Get user by email
 -API - Feed API - GET /feed - get all the users from the database
 -API - Get user by ID
@@ -66,6 +72,7 @@ User.findOne with duplucate email ids, which object returned
 -Add timestamps to the userSchema
 
 # Understand the HTTP Methods
+
 -Add API level validation on Patch request & Signup post api
 -DATA Sanitizing - Add API validation for each field
 -Install validator
@@ -74,6 +81,7 @@ User.findOne with duplucate email ids, which object returned
 -Validate data in Signup API
 
 # Authentication Bcrypt / Jsonwebtoken
+
 -Install bcrypt package
 -Create PasswordHash using bcrypt.hash & save the user is excrupted password
 -Create login API
@@ -91,31 +99,35 @@ User.findOne with duplucate email ids, which object returned
 -Create UserSchema method to comparepassword(passwordInputByUser)
 -Explore tinder APIs
 
-# API LIST DevConnector 
+# API LIST DevConnector
 
-# authRouter
+## authRouter
+
 - POST /signup
 - POST /login
 - POST /logout
 
-# profileRouter 
+## profileRouter
+
 - GET /profile/view
 - PATCH /profile/edit
 - PATCH /profile/password // Forgot password API
 
-# connectionRequestRouter
-- POST /request/send/:status/:userId 
+## connectionRequestRouter
+
+- POST /request/send/:status/:userId
 - POST /request/review/:status/:requestId
 
-# userRouter
+## userRouter
+
 - GET /user/requests/received
 - GET /user/connections
 - GET /user/feed - Gets you the profiles of other users on platform
 
-
 Status: ignored, interested, accepeted, rejected
 
 # Router
+
 -Create a list all API you can think of in Dev Tinder
 -Group multiple routes under repective routers
 -Read documentation for express.Router
@@ -124,6 +136,7 @@ Status: ignored, interested, accepeted, rejected
 -Import these routers in app.js
 
 # Other Pending APIs (profile)
+
 -Create POST /logout API
 -Create PATCH /profile/edit
 -Create PATCH /profile/password API => forgot password API
@@ -134,18 +147,14 @@ Send Connection Request API
 Proper validation of Data
 Think about ALL corner cases
 
+# In Deapth knowledge about the MongoDB & Key Points
+
 $or query $and query in mongoose - https://www.mongodb.com/docs/manual/reference/operator/query-logical/
-
 schema.pre("save") function
-
 Read more about indexes in MongoDB
-
 Why do we need index in DB?
-
 What is the advantages and disadvantage of creating?
-
 Read this arcticle about compond indexes - https://www.mongodb.com/docs/manual/core/indexes/index-types/index-compound/
-
 ALWAYS THINK ABOUT CORNER CASES
 
 Write code with proper validations for POST /request/review/:status/:requestId
