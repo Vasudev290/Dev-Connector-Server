@@ -91,34 +91,47 @@ User.findOne with duplucate email ids, which object returned
 -Create UserSchema method to comparepassword(passwordInputByUser)
 -Explore tinder APIs
 
+# API LIST DevConnector 
+
+# authRouter
+- POST /signup
+- POST /login
+- POST /logout
+
+# profileRouter 
+- GET /profile/view
+- PATCH /profile/edit
+- PATCH /profile/password // Forgot password API
+
+# connectionRequestRouter
+- POST /request/send/:status/:userId 
+- POST /request/review/:status/:requestId
+
+# userRouter
+- GET /user/requests/received
+- GET /user/connections
+- GET /user/feed - Gets you the profiles of other users on platform
+
+
+Status: ignored, interested, accepeted, rejected
 
 # Router
-Create a list all API you can think of in Dev Tinder
+-Create a list all API you can think of in Dev Tinder
+-Group multiple routes under repective routers
+-Read documentation for express.Router
+-Create routes folder for managing auth,profile, request routers
+-create authRouter, profileRouter, requestRouter
+-Import these routers in app.js
 
-Group multiple routes under repective routers
-
-Read documentation for express.Router
-
-Create routes folder for managing auth,profile, request routers
-
-create authRouter, profileRouter, requestRouter
-
-Import these routers in app.js
-
+# Other Pending APIs
 Create POST /logout API
-
 Create PATCH /profile/edit
-
 Create PATCH /profile/password API => forgot password API
 
 Make you validate all data in every POST, PATCH apis
-
 Create Connnection Request Schema
-
 Send Connection Request API
-
 Proper validation of Data
-
 Think about ALL corner cases
 
 $or query $and query in mongoose - https://www.mongodb.com/docs/manual/reference/operator/query-logical/
