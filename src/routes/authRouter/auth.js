@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const authRouter = express.Router();
-const bcrypt = require('bcrypt')
-const { validateSignUpData } = require('../../utils/validation');
-const User = require('../../models/User');
+const bcrypt = require("bcrypt");
+const { validateSignUpData } = require("../../utils/validation");
+const User = require("../../models/User");
 
 //Signup
 authRouter.post("/signup", async (req, res) => {
@@ -38,16 +38,19 @@ authRouter.post("/signup", async (req, res) => {
     const userData = await userObj.save();
     res
       .status(200)
-      .json({ message: "Data posted successfull", userDetails: userData });
+      .json({
+        message: "New user data posted successfull",
+        userDetails: userData,
+      });
   } catch (err) {
     res
       .status(401)
-      .send({ message: "Data failed to posted", error: err.message });
+      .send({ message: "User failed to post the data!", error: err.message });
   }
 });
 
 //login
-authRouter.post("/login", async (req, res) => { 
+authRouter.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
     const userVaild = await User.findOne({ emailId: emailId });
@@ -75,6 +78,19 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
-
+//logout
+authRouter.post("/logout", async (req, res) => {
+  try {
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+    });
+    res.send("User logout successfullly!");
+  } catch (error) {
+    res.status(400).json({
+      message: "User failed to logout",
+      error: error.message,
+    });
+  }
+});
 
 module.exports = authRouter;

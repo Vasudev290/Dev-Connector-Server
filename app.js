@@ -12,7 +12,7 @@ app.use(cookieParser());
 
 //Router
 app.use("/", authRouter);
-app.use("/", profileRouter);
+app.use("/profile", profileRouter);
 app.use("/", requestRouter);
 
 //Database Connected

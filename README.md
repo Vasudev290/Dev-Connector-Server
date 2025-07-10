@@ -123,12 +123,12 @@ Status: ignored, interested, accepeted, rejected
 -create authRouter, profileRouter, requestRouter
 -Import these routers in app.js
 
-# Other Pending APIs
-Create POST /logout API
-Create PATCH /profile/edit
-Create PATCH /profile/password API => forgot password API
+# Other Pending APIs (profile)
+-Create POST /logout API
+-Create PATCH /profile/edit
+-Create PATCH /profile/password API => forgot password API
+-Make you validate all data in every POST, PATCH apis
 
-Make you validate all data in every POST, PATCH apis
 Create Connnection Request Schema
 Send Connection Request API
 Proper validation of Data
