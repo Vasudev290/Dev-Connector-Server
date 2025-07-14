@@ -6,7 +6,7 @@ const requestRouter = express.Router();
 
 //SendconnectionRequest
 requestRouter.post(
-  "/request/send/:status/:toUserId",
+  "/send/:status/:toUserId",
   userAuth,
   async (req, res) => {
     try {
@@ -63,4 +63,45 @@ requestRouter.post(
     }
   }
 );
+
+//ConnectionRequestReview
+requestRouter.post(
+  "/review/:status/:requestId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const user = req.user;
+      const { status, requestId } = req.params;
+
+      //Statues Check
+      const allowedStatus = ["accepted", "rejected"];
+      if (!allowedStatus.includes(status)) {
+        return res.status(400).json({ message: `${status} not allowed!` });
+      }
+      //Connection Request Check
+      const connectionRequest = await ConnectionRequestModel.findOne({
+        _id: requestId,
+        toUserId: user._id,
+        status: "interested",
+      });
+      if (!connectionRequest) {
+        return res
+          .status(404)
+          .json({ message: "Connection Request not found!" });
+      }
+      connectionRequest.status = status;
+      const modifiedConnectionRequest = await connectionRequest.save();
+      res.json({
+        message: `Connection Request ${status}`,
+        Connection_Details: modifiedConnectionRequest,
+      });
+    } catch (error) {
+      res.status(400).json({
+        message: "Failed to Review the Connection request!!",
+        error: error.message,
+      });
+    }
+  }
+);
+
 module.exports = requestRouter;
