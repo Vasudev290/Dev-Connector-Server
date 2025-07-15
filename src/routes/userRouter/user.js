@@ -1,6 +1,7 @@
 const express = require("express");
 const { userAuth } = require("../../middleware/auth");
 const ConnectionRequestModel = require("../../models/ConnectionRequest");
+const User = require("../../models/User");
 const userRouter = express.Router();
 const USER_SAFE_DATA = "firstName lastName age gender photoUrl about skills";
 
@@ -56,4 +57,48 @@ userRouter.get("/connections", userAuth, async (req, res) => {
   }
 });
 
+//Feed
+userRouter.get("/feed", userAuth, async (req, res) => {
+  try {
+    const user = req.user;
+
+    //Paginationation
+    const page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+    limit = limit > 50 ? 50 : limit;
+    const skip = (page - 1) * limit;
+
+    //Find all connection requests
+    const allConnectionRequests = await ConnectionRequestModel.find({
+      $or: [{ fromUserId: user._id }, { toUserId: user._id }],
+    }).select("fromUserId  toUserId");
+
+    //Hide the other users
+    const hideUsersFromFeed = new Set();
+    allConnectionRequests.forEach((req) => {
+      hideUsersFromFeed.add(req.fromUserId.toString());
+      hideUsersFromFeed.add(req.toUserId.toString());
+    });
+
+    //find new User
+    const findUsers = await User.find({
+      $and: [
+        { _id: { $nin: Array.from(hideUsersFromFeed) } },
+        { _id: { $ne: user._id } },
+      ],
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
+
+    res
+      .status(200)
+      .json({ message: "Got the feed", User_Feed_Data: findUsers });
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to get the Feed Data!!",
+      error: error.message,
+    });
+  }
+});
 module.exports = userRouter;
