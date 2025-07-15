@@ -14,7 +14,7 @@ requestRouter.post(
       const toUserId = req.params.toUserId;
       const status = req.params.status;
 
-      //Status Validation
+      //Status Validation Case Corner
       const allowedStatus = ["ignored", "interested"];
       if (!allowedStatus.includes(status)) {
         return res
@@ -34,7 +34,7 @@ requestRouter.post(
         status,
       });
 
-      //if there is an existing ConnectionRequest Validation
+      //if there is an existing ConnectionRequest Validation Case Corner
       const existingConnectionRequest = await ConnectionRequestModel.findOne({
         $or: [
           { fromUserId, toUserId },
@@ -73,7 +73,7 @@ requestRouter.post(
       const user = req.user;
       const { status, requestId } = req.params;
 
-      //Statues Check
+      //Statues Check Case Corner
       const allowedStatus = ["accepted", "rejected"];
       if (!allowedStatus.includes(status)) {
         return res.status(400).json({ message: `${status} not allowed!` });

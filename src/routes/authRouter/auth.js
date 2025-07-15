@@ -40,7 +40,7 @@ authRouter.post("/signup", async (req, res) => {
       .status(200)
       .json({
         message: "New user data posted successfull",
-        userDetails: userData,
+        New_User_Details: userData,
       });
   } catch (err) {
     res
