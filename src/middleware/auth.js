@@ -6,7 +6,7 @@ const userAuth = async (req, res, next) => {
     //Read the token from the req cookies
     const { token } = req.cookies;
     if (!token) {
-      throw new Error("Invaild Token!");
+      return res.status(401).send("Please Login Properly!");
     }
     //validate the token verify
     const decodedDataObj = await jwt.verify(token, "DEV@connector$79031");
@@ -17,7 +17,7 @@ const userAuth = async (req, res, next) => {
       throw new Error("User not found!");
     }
     req.user = user;
-    next(); 
+    next();
   } catch (error) {
     res.status(400).json({
       message: "Data failed to post the login details",
