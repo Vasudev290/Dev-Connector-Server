@@ -36,12 +36,16 @@ authRouter.post("/signup", async (req, res) => {
       skills,
     });
     const userData = await userObj.save();
-    res
-      .status(200)
-      .json({
-        message: "New user data posted successfull",
-        New_User_Details: userData,
+
+    //Create a JWT Token
+    const token = await userData.getJWT();
+    res.cookie("token", token, {
+        expires: new Date(Date.now() + 8 * 3600000),
       });
+    res.status(200).json({
+      message: "New user data posted successfull",
+      New_User_Details: userData,
+    });
   } catch (err) {
     res
       .status(401)
@@ -68,7 +72,9 @@ authRouter.post("/login", async (req, res) => {
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
       });
-      res.status(200).json({ message: "Login Successfull!", Login_User_Details: userVaild });
+      res
+        .status(200)
+        .json({ message: "Login Successfull!", Login_User_Details: userVaild });
     }
   } catch (error) {
     res.status(400).json({
