@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const connectDB = require("./src/config/db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -7,6 +8,7 @@ const profileRouter = require("./src/routes/profileRouter/profile");
 const requestRouter = require("./src/routes/requestRouter/request");
 const userRouter = require("./src/routes/userRouter/user");
 const app = express();
+
 
 //middleware:- json, cookie-parser
 app.use(express.json());
