@@ -9,7 +9,6 @@ const requestRouter = require("./src/routes/requestRouter/request");
 const userRouter = require("./src/routes/userRouter/user");
 const app = express();
 
-
 //middleware:- json, cookie-parser
 app.use(express.json());
 app.use(cookieParser());
@@ -21,17 +20,17 @@ app.use(
 );
 
 //Router
-app.use("/", authRouter);
-app.use("/profile", profileRouter);
-app.use("/request", requestRouter);
-app.use("/user", userRouter);
+app.use("/api", authRouter);
+app.use("/api/profile", profileRouter);
+app.use("/api/request", requestRouter);
+app.use("/api/user", userRouter);
 
 //Database Connected
 connectDB()
   .then(() => {
     console.log("MongoDB Connected Successfully! 🚀🚀");
     //Listen server
-    app.listen(process.env.PORT, () => {
+    app.listen(process.env.PORT, "0.0.0.0", () => {
       console.log(
         `Server started and running on ${process.env.PORT} successfully! 🔥🔥🚀🚀`
       );
