@@ -1,5 +1,6 @@
 const { SendEmailCommand } = require("@aws-sdk/client-ses");
-const { sesClient } = require("./sesClient.js");
+const { sesClient } = require("./sesClient");
+require('dotenv').config();
 
 const createSendEmailCommand = (toAddress, fromAddress, subject, body) => {
   return new SendEmailCommand({
@@ -30,7 +31,7 @@ const createSendEmailCommand = (toAddress, fromAddress, subject, body) => {
   });
 };
 
-const run = async (subject, body, toEmailId) => {
+const run = async (subject, body) => {
   const sendEmailCommand = createSendEmailCommand(
     "vasukesavulu@gamil.com",
     "vasudev@devconnector.info",
