@@ -12,6 +12,7 @@
   "type": "commonjs",
   "description": "Dev-tinder is a platform built for developers, designers, and tech enthusiasts to connect, collaborate, and create amazing projects together.",
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.848.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

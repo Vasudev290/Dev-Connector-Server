@@ -9,7 +9,7 @@ const userAuth = async (req, res, next) => {
       return res.status(401).send("Please Login Properly!");
     }
     //validate the token verify
-    const decodedDataObj = await jwt.verify(token, "DEV@connector$79031");
+    const decodedDataObj = await jwt.verify(token, process.env.JWT_SECRET_KEY);
     const { _id } = decodedDataObj;
     //find the user
     const user = await User.findById(_id);
