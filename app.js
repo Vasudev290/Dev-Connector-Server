@@ -26,9 +26,9 @@ app.use("/api/request", requestRouter);
 app.use("/api/user", userRouter);
 
 //Error check
-app.use((req, res, next) => {
-  res.status(404).json({ error: "Route Not Found", path: req.originalUrl });
-});
+// app.use((req, res, next) => {
+//   res.status(404).json({ error: "Route Not Found", path: req.originalUrl });
+// });
 
 //Database Connection
 const MONGO_URI = process.env.MONGO_DB_URI_LINK;
