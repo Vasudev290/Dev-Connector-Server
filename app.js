@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config();
-const connectDB = require("./src/config/db");
+const connectDB = require("./src/Config/db");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRouter = require("./src/routes/authRouter/auth");
@@ -20,10 +20,10 @@ app.use(
 );
 
 //Router
-app.use("/", authRouter);
-app.use("/profile", profileRouter);
-app.use("/request", requestRouter);
-app.use("/user", userRouter);
+app.use("/api", authRouter);
+app.use("/api/profile", profileRouter);
+app.use("/api/request", requestRouter);
+app.use("/api/user", userRouter);
 
 //Database Connected
 connectDB()
