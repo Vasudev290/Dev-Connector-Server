@@ -3,7 +3,6 @@ const { userAuth } = require("../../middleware/auth");
 const ConnectionRequestModel = require("../../models/ConnectionRequest");
 const User = require("../../models/User");
 const requestRouter = express.Router();
-const sendEmail = require("../../utils/sendEmail");
 
 //SendconnectionRequest
 requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
@@ -44,18 +43,13 @@ requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
     }
 
     const connectionReqdata = await connectionRequest.save();
-    //sendEmail
-    const emailRes = await sendEmail.run(
-      "A new friend request from " + req.user.firstName,
-      req.user.firstName + " is " + status + " in " + toUser.firstName
-    );
+    
     //console.log(emailRes);
     res.status(200).json({
       message:
         status === "interested"
           ? `${req.user.firstName} has shown interest and successfully sent a connection request to ${toUser.firstName}!`
           : `${req.user.firstName} has ignored the connection request to ${toUser.firstName}.`,
-      SendEmail: emailRes,
       Connection_Req_Details: connectionReqdata,
     });
   } catch (error) {

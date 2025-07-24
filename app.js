@@ -20,17 +20,17 @@ app.use(
 );
 
 //Router
-app.use("/api", authRouter);
-app.use("/api/profile", profileRouter);
-app.use("/api/request", requestRouter);
-app.use("/api/user", userRouter);
+app.use("/", authRouter);
+app.use("/profile", profileRouter);
+app.use("/request", requestRouter);
+app.use("/user", userRouter);
 
 //Database Connected
 connectDB()
   .then(() => {
     console.log("MongoDB Connected Successfully! 🚀🚀");
     //Listen server
-    app.listen(process.env.PORT, "0.0.0.0", () => {
+    app.listen(process.env.PORT,() => {
       console.log(
         `Server started and running on ${process.env.PORT} successfully! 🔥🔥🚀🚀`
       );
