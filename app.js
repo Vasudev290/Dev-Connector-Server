@@ -9,6 +9,9 @@ const requestRouter = require("./src/routes/requestRouter/request");
 const userRouter = require("./src/routes/userRouter/user");
 const app = express();
 
+//Cron Job
+require("./src/utils/cronJobs");
+
 //middleware:- json, cookie-parser
 app.use(express.json());
 app.use(cookieParser());
