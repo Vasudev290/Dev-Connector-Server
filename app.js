@@ -7,6 +7,7 @@ const authRouter = require("./src/routes/authRouter/auth");
 const profileRouter = require("./src/routes/profileRouter/profile");
 const requestRouter = require("./src/routes/requestRouter/request");
 const userRouter = require("./src/routes/userRouter/user");
+const paymentRouter = require("./src/routes/paymentRouter/payment");
 const app = express();
 
 //Cron Job
@@ -27,6 +28,7 @@ app.use("/api", authRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/request", requestRouter);
 app.use("/api/user", userRouter);
+app.use("/api/payment", paymentRouter);
 
 //Error check
 app.use((req, res, next) => {
