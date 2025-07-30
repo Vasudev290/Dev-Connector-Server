@@ -3,11 +3,16 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const http = require("http");
+
 const authRouter = require("./src/routes/authRouter/auth");
 const profileRouter = require("./src/routes/profileRouter/profile");
 const requestRouter = require("./src/routes/requestRouter/request");
 const userRouter = require("./src/routes/userRouter/user");
 const paymentRouter = require("./src/routes/paymentRouter/payment");
+const initializeSocket = require("./src/utils/socket");
+const chatRouter = require("./src/routes/chatRouter/chat");
+
 const app = express();
 
 //Cron Job
@@ -29,6 +34,7 @@ app.use("/api/profile", profileRouter);
 app.use("/api/request", requestRouter);
 app.use("/api/user", userRouter);
 app.use("/api/payment", paymentRouter);
+app.use("/api", chatRouter);
 
 //Error check
 app.use((req, res, next) => {
@@ -41,12 +47,18 @@ const connectDB = async () => {
   await mongoose.connect(MONGO_URI);
 };
 
+//Config Server in webSocket.io
+const server = http.createServer(app);
+
+//WebSocket.io
+initializeSocket(server);
+
 //Database Connected
 connectDB()
   .then(() => {
     console.log("MongoDB Connected Successfully! 🚀🚀");
     //Listen server
-    app.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT, () => {
       console.log(
         `Server started and running on ${process.env.PORT} successfully! 🔥🔥🚀🚀`
       );
